@@ -87,13 +87,13 @@ function wrapper(plugin_info) {
 				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault;
 			break;
 			case 'Default1':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault() + 1;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault1;
 			break;
 			case 'Default2':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault() + 2;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault2;
 			break;
 			case 'Default3':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault() + 3;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault3;
 			break;
 			case 'AllLinks':
 				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomAllLinks;
@@ -109,6 +109,9 @@ function wrapper(plugin_info) {
 		$('#toolbox').append(' <a onclick="window.plugin.changeZoomLevel.showDialog()">Change Zoom Opt</a>');
 
 		window.getDataZoomForMapZoomDefault = window.getDataZoomForMapZoom;
+		window.getDataZoomForMapZoomDefault1 = function() {window.getDataZoomForMapZoomDefault() + 1};
+		window.getDataZoomForMapZoomDefault2 = function() {window.getDataZoomForMapZoomDefault() + 2};
+		window.getDataZoomForMapZoomDefault3 = function() {window.getDataZoomForMapZoomDefault() + 3};
 		window.getDataZoomForMapZoomAllLinks = function() { return 13; };
 		window.getDataZoomForMapZoomAllPortals = function() { return 17 };
 
