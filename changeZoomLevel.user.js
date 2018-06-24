@@ -109,9 +109,9 @@ function wrapper(plugin_info) {
 		$('#toolbox').append(' <a onclick="window.plugin.changeZoomLevel.showDialog()">Change Zoom Opt</a>');
 
 		window.getDataZoomForMapZoomDefault = window.getDataZoomForMapZoom;
-		window.getDataZoomForMapZoomDefault1 = function() {window.getDataZoomForMapZoomDefault() + 1};
-		window.getDataZoomForMapZoomDefault2 = function() {window.getDataZoomForMapZoomDefault() + 2};
-		window.getDataZoomForMapZoomDefault3 = function() {window.getDataZoomForMapZoomDefault() + 3};
+		window.getDataZoomForMapZoomDefault1 = function() {window.getDataZoomForMapZoom() + 1};
+		window.getDataZoomForMapZoomDefault2 = function() {window.getDataZoomForMapZoom() + 2};
+		window.getDataZoomForMapZoomDefault3 = function() {window.getDataZoomForMapZoom() + 3};
 		window.getDataZoomForMapZoomAllLinks = function() { return 13; };
 		window.getDataZoomForMapZoomAllPortals = function() { return 17 };
 
