@@ -26,11 +26,11 @@ function wrapper(plugin_info) {
 
 
 	// use own namespace for plugin
-	window.plugin.forceZoomLevel = function() {};
+	window.plugin.changeZoomLevel = function() {};
 
-	window.plugin.forceZoomLevel.mode = 'Default';
-	window.plugin.forceZoomLevel.functionsOverwritten = false;
-	window.plugin.forceZoomLevel.zoomOptions = {
+	window.plugin.changeZoomLevel.mode = 'Default';
+	window.plugin.changeZoomLevel.functionsOverwritten = false;
+	window.plugin.changeZoomLevel.zoomOptions = {
 		'Default' : 'Default', 
 		'Default1' : 'Default +1', 
 		'Default2' : 'Default +2', 
@@ -41,19 +41,19 @@ function wrapper(plugin_info) {
 
 
 
-	window.plugin.forceZoomLevel.showDialog = function() {
+	window.plugin.changeZoomLevel.showDialog = function() {
 		var div = document.createElement('div');
 
 		div.appendChild(document.createTextNode('Select a forced zoom level: '));
 		div.appendChild(document.createElement('br'));
 
-		for(var option in window.plugin.forceZoomLevel.zoomOptions) {
+		for(var option in window.plugin.changeZoomLevel.zoomOptions) {
 			var label = div.appendChild(document.createElement('label'));
 			var input = label.appendChild(document.createElement('input'));
 			input.type = 'radio';
-			input.name = 'plugin-force-zoomlevel';
+			input.name = 'plugin-cange-zoomlevel';
 			input.value = option;
-			if(option === window.plugin.forceZoomLevel.mode) {
+			if(option === window.plugin.changeZoomLevel.mode) {
 				input.checked = true;
 			}
 
@@ -61,39 +61,39 @@ function wrapper(plugin_info) {
 				'click',
 				function(opt) {
 					return function() {
-						window.plugin.forceZoomLevel.setMode(opt);
+						window.plugin.changeZoomLevel.setMode(opt);
 					}
 				}(option),
 				false
 			);
 
-			label.appendChild(document.createTextNode(' ' + window.plugin.forceZoomLevel.zoomOptions[option]));
+			label.appendChild(document.createTextNode(' ' + window.plugin.changeZoomLevel.zoomOptions[option]));
 
 			div.appendChild(document.createElement('br'));
 		}
 
 		dialog({
-			id: 'plugin-force-zoomlevel',
+			id: 'plugin-change-zoomlevel',
 			html: div,
-			title: 'Force Zoom Level',
+			title: 'Change Zoom Level',
 		});
 	};
 
-	window.plugin.forceZoomLevel.setMode = function (mode) {
-		window.plugin.forceZoomLevel.mode = mode;
-		localStorage['plugin-forcezoomlevel-mode'] = mode;
+	window.plugin.changeZoomLevel.setMode = function (mode) {
+		window.plugin.changeZoomLevel.mode = mode;
+		localStorage['plugin-changeZoomLevel-mode'] = mode;
 		switch(mode) {
 			case 'Default':
 				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault;
 			break;
 			case 'Default1':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault + 1;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault1;
 			break;
 			case 'Default2':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault + 2;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault2;
 			break;
 			case 'Default3':
-				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault + 3;
+				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomDefault3;
 			break;
 			case 'AllLinks':
 				window.getDataZoomForMapZoom = window.getDataZoomForMapZoomAllLinks;
@@ -105,26 +105,29 @@ function wrapper(plugin_info) {
 		window.mapDataRequest.start();
 	}
 
-	window.plugin.forceZoomLevel.setup  = function() {
-		$('#toolbox').append(' <a onclick="window.plugin.forceZoomLevel.showDialog()">Force Zoom Opt</a>');
+	window.plugin.changeZoomLevel.setup  = function() {
+		$('#toolbox').append(' <a onclick="window.plugin.changeZoomLevel.showDialog()">Change Zoom Opt</a>');
 
 		window.getDataZoomForMapZoomDefault = window.getDataZoomForMapZoom;
+		window.getDataZoomForMapZoomDefault1 = window.getDataZoomForMapZoom + 1;
+		window.getDataZoomForMapZoomDefault2 = window.getDataZoomForMapZoom + 2;
+		window.getDataZoomForMapZoomDefault3 = window.getDataZoomForMapZoom + 3;
 		window.getDataZoomForMapZoomAllLinks = function() { return 13; };
 		window.getDataZoomForMapZoomAllPortals = function() { return 17 };
 
 		try {
-			var mode = localStorage['plugin-forcezoomlevel-mode'];
+			var mode = localStorage['plugin-changeZoomLevel-mode'];
 			if(typeof(mode) === 'undefined') {
 				mode = 'Default';
 			}
-			window.plugin.forceZoomLevel.setMode(mode);
+			window.plugin.changeZoomLevel.setMode(mode);
 		} catch(e) {
 			console.warn(e);
-			window.plugin.forceZoomLevel.mode = 'Default';
+			window.plugin.changeZoomLevel.mode = 'Default';
 		}
 	};
 
-	var setup =  window.plugin.forceZoomLevel.setup;
+	var setup =  window.plugin.changeZoomLevel.setup;
 
 	// PLUGIN END //////////////////////////////////////////////////////////
 
